@@ -6,7 +6,7 @@ author_profile: true
 ---
 
 
-I am a 1st year MS student in the Computer Engineering, Arizona State University. My major research concentration is Deep learning in Medical Imaging. I have experience working with many deep learning frame works and tools.    
+I am a 1st year MS student in the Computer Engineering Department, Arizona State University. My major research concentration is Deep learning in Medical Imaging. I have experience working with many deep learning frame works and tools.    
 I am interested in learning more about state-of-the-art Statistical Learning methods, and applying them to solve real world problems.
 
   

@@ -1,0 +1,55 @@
+<!DOCTYPE html><html><head><title>FAcebook C3D Using Tutorial</title><meta charset='utf-8'><link href='https://d31qtcb7c58z3n.cloudfront.net/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+<div><div class="toc"><div class="toc">
+<ul>
+<li><ul>
+<li><ul>
+<li><a href="#facebook-c3d-using-tutorial">FAcebook C3D Using Tutorial</a><ul>
+<li><a href="#train-3d-convnet-from-scratch">Train 3D Convnet from scratch</a></li>
+<li><a href="#debug-caffe">Debug caffe</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+<h3 id="facebook-c3d-using-tutorial">FAcebook C3D Using Tutorial</h3>
+
+<p>C3D is a deep learning tool which is modified version of BVLC caffe to support 3D convolution and pooling. it was released by Facebook. In the field of human action recognition, C3D feature of video clip is the state-of-the-art feature. In this blog, I write some notes for using this tool in practice.</p>
+
+
+
+<h4 id="train-3d-convnet-from-scratch">Train 3D Convnet from scratch</h4>
+
+<p>Train from scratch C3D offers some useful shell scripts to simplify our job, we can read the scripts and adapt it according our tasks. <br>
+NOTE: you must adapt the shell scripts to ensure that every parameter is correct for your task! <br>
+the schedule of training from scratch is(assuming we are training on ucf101):</p>
+
+<ol start="1"><li rel="1"><strong>Compute Volume mean for your data:</strong> My input data is in mat. So, first we need to compute lmdb</li>
+</ol>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-bash hljs"><span class="hljs-comment"># modify examples/c3d_train_ucf101</span><br>GLOG_logtostderr=<span class="hljs-number">1</span> ../../build/tools/compute_volume_mean_from_list.bin ../c3d_finetuning/train_01.lst <span class="hljs-number">16</span> <span class="hljs-number">128</span> <span class="hljs-number">171</span> <span class="hljs-number">1</span> ucf101_train_mean.binaryproto <span class="hljs-number">10</span><br><br><br></code></pre>
+
+
+
+<h4 id="debug-caffe">Debug caffe</h4>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-bash hljs">gdb --args ../../install/tools/caffe train --solver=<span class="hljs-built_in">test</span>Net_solver.prototxt<br><br><span class="hljs-comment">#assume you are at C3D root directory right now</span><br><span class="hljs-number">1</span>. <span class="hljs-built_in">cd</span> examples/c3d_train_ucf101 <br><span class="hljs-number">2</span>. sh create_volume_means.sh <span class="hljs-comment"># compute the mean file of your dataset</span><br><span class="hljs-number">3</span>. sh train_ucf101.sh <span class="hljs-comment"># train from scratch </span><br><span class="hljs-number">4</span>. <span class="hljs-built_in">test</span>_ucf101.sh <span class="hljs-comment"># test the accuracy of training</span><br><br></code></pre>
+
+<p>To DO</p>
+
+<ol start="1"><li rel="1">compute_volume_mean_from_list.sh–&gt;compute_volume_mean_from_list.cpp –&gt; has import imageio –&gt; modify for CT (UNderstand Datum)</li>
+</ol></div></body></html>

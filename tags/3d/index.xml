@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>3d on Naveen Sai</title>
-    <link>https://naveensai.me/tags/3d/index.xml</link>
+    <link>http://naveensai.me/tags/3d/index.xml</link>
     <description>Recent content in 3d on Naveen Sai</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,10 +11,10 @@
     
     <item>
       <title>Notes on 3D CNN</title>
-      <link>https://naveensai.me/post/Separable/</link>
+      <link>http://naveensai.me/post/Separable/</link>
       <pubDate>Fri, 10 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://naveensai.me/post/Separable/</guid>
+      <guid>http://naveensai.me/post/Separable/</guid>
       <description>&lt;!--&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;3D CNN/Separable&lt;/title&gt;&lt;meta charset=&#39;utf-8&#39;&gt;&lt;link href=&#39;https://d31qtcb7c58z3n.cloudfront.net/res-min/themes/marxico.css&#39; rel=&#39;stylesheet&#39;&gt;&lt;style&gt;&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div id=&#39;preview-contents&#39; class=&#39;note-content&#39;&gt; 
 --&gt;
 

@@ -11,6 +11,274 @@
     <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>3D CNN Notes</title>
+      <link>https://naveensai.me/post/3d-cnn/Separable/</link>
+      <pubDate>Fri, 10 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://naveensai.me/post/3d-cnn/Separable/</guid>
+      <description>
+
+&lt;h2 id=&#34;3d-cnn-separable&#34;&gt;3D CNN/Separable&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;[TOC]&lt;/p&gt;
+
+&lt;h3 id=&#34;literature&#34;&gt;Literature&lt;/h3&gt;
+
+&lt;p&gt;####Literature on Separable
+1. &lt;a href=&#34;https://infoscience.epfl.ch/record/200142/files/separable_filters_learning_1.pdf&#34; target=&#34;_blank&#34;&gt;Learning separable filters. Sironi, Amos&lt;/a&gt;
+&lt;strong&gt;Why Separable helpful in 3D&lt;/strong&gt;: If filters are separable number of parameters reduces from $n_1.n_2.n_3d_1.d_2.d_3$ to $n1.n2.n_3(d_1+d_2+d_3)$.
+&lt;strong&gt;Overview&lt;/strong&gt;:  In this paper the author proposed various state of the art methods to learn separable filters.
+- Filters to extract image features are not always separable. Therefore, the paper finds approximates a filter bank using a linear combinations of set of separable filters. Two approaches are presented in this paper.
+        - Make changes in objective function to always make filters separable
+        - First learn a set of non separable filter&amp;mdash;&amp;gt; approximate them using a linear combination of small set of separable filters.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;**Directly Learning 2D filters**:
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A popular model to learn filters is by using convolutional extension of  oshausen and field&amp;rsquo;s objective function.&lt;/li&gt;
+&lt;li&gt;Direct optimization give state of the art results. However,  the run time computations are costly. If filters are separable extracting feature maps computation reduces from $O(n_1.n_2.d_1.d_2))$ to $O(n1.n2.(d_1+d_2))$.&lt;/li&gt;
+&lt;li&gt;Explicitly writing filters as product of 1D filters will give rise to a quadratic objective function in 2D case. This optimization is very hard .&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Two approaches are discussed in this paper&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Modifying objective function to eliminate non-Separable solutions
+
+&lt;ul&gt;
+&lt;li&gt;Filter of Rank R can expressed as linear combination of R separable filters.
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Penalizing High Rank Filters&lt;/strong&gt;:
+    - Penalize high rank filters by adding a penality term to objective function which forces the objective function to choose low rank filters.
+    - The Penalizing term comes with a parameter $\lambda_&lt;em&gt;$
+ -  Tuning appropriate values for gradient step size, $\lambda&lt;em&gt;1$ and $\lambda&lt;/em&gt;&lt;/em&gt;$ is challenging.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;**Linear Combination of Separable Filters(Filter Sharing)**:
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A filter $f^j$ of rank $R$ can awlays be writtens as
+$$ f^j=\sum _{k=1}^{R} w_j^ks^{j,k}$$
+    - Each filter would yeild a different filter bank if decomposed independently. To, avoid this a set of separable filters are shared among all the filter banks.
+    - Just changing the weights and computing linear combinations would be enogh for any convolution&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Method 1&lt;/strong&gt;:
+    - Directly optimizing the objective function would be difficult.
+    - Convert the original objective function into two. First learn set of non separable filter &amp;ndash;&amp;gt; Then learn a set of separable filters to approximate the learned non-separable ones.
+    - An additional regularization parameter $\lambda_*$ needs to introduced which is difficult be tune.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;**Method 2: Tensor Decomposition**:
+- We start with 3D tensor, write it as a product of 3 vectors. 
+- CP-OPT algorithms present in matlab can be used for optimization.
+- There is only one parameter K, which gives set of k filters
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;: Tensor Decomposition gives the best approximation.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Application to CNN&lt;/strong&gt;: Directly cannot train approximated filters. First train a network or use a pre-trained&amp;ndash;&amp;gt;Use Tensor Decomposition &amp;ndash;&amp;gt; Achieve speed during test.
+&lt;strong&gt;Implementation&lt;/strong&gt;:  &lt;a href=&#34;https://bitbucket.org/asironi/learn_approx_class_3d/downloads&#34; target=&#34;_blank&#34;&gt;Matlab code for separating Learned 3D filters&lt;/a&gt;. Further, more efficient Library is available for tensor decomposition.&lt;a href=&#34;http://www.tensorlab.net/&#34; target=&#34;_blank&#34;&gt;TensorLab&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.umiacs.umd.edu/~zhengyf/DeepLandmark_MICCAI15.pdf&#34; target=&#34;_blank&#34;&gt;3D Deep Learning for Efficient and Robust Landmark
+Detection in Volumetric Data&lt;/a&gt;: MICCAI_2015
+&lt;strong&gt;Application&lt;/strong&gt;: Detection of Carotid Artery bifurcation Landmark(Candidate)
+&lt;strong&gt;overview&lt;/strong&gt;:  shallow 3D for candidate shortlist + deep 3D for landmark detection
+&lt;strong&gt;Library&lt;/strong&gt;: Caffe was modified to add a mask which disregards pruned parameters during network operation for each weight tensor.
+&lt;strong&gt;key idea&lt;/strong&gt;:&lt;/li&gt;
+&lt;li&gt;In shallow 3D, Separated 3D learned filters into 1D filters. Also used sharing of 1D filters.&lt;/li&gt;
+&lt;li&gt;In Deep 3D trained the network and found 90% Learned weights of deep network are close to zero.  Removed 90% of connection to achieve speed.&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;This is achieved using a regularization term which will push most the weights to zero. Thus, the dead neurons will be automatically removed during retraining.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Implementation&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ShallowNet: Iteratively Train net using modified objective function and the Approximate learned filters using a filter bank containing S set of separable filters to minimize reconstruction error.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;DeepNet: Used L1 norm regularization to enforce sparse connection, i.e to drive weights to zero. (A parameter $\beta$ to tune amount of sparseness)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;:&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Did not separate deep network!-Since the preserved candidates are often scattered over the whole volume, separable filter decomposition as used in the shallow net does not help to accelerate the classification?? How is the candidate shortlisted. What&amp;rsquo;s a candidate.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;No Speed up during training. Only speedup achieved during testing.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://arxiv.org/pdf/1412.6553.pdf&#34; target=&#34;_blank&#34;&gt;Speeding-up Convolutional Neural Networks Using Fine-tuned CP-Decomposition, ICLR 2015&lt;/a&gt;
+&lt;strong&gt;Main Idea&lt;/strong&gt;:  Proposed a two step process. Given a Convolutional layer perform Tensor Decomposition&amp;mdash;&amp;gt;replace the original CNN layer with approximated layer&amp;mdash;&amp;gt;fine tune the entire network.
+For example a 4D convolution layer is replaced with 4 Convolution layers and the entire network is  fine tuned.
+&lt;strong&gt;Results&lt;/strong&gt;: In AlexNet. 1% accuracy drop and 8.5X speed increase
+&lt;a href=&#34;https://github.com/vadim-v-lebedev/cp-decomposition&#34; target=&#34;_blank&#34;&gt;CODE&lt;/a&gt;
+&lt;strong&gt;Inference&lt;/strong&gt;: Works good for small network. But perfomance not so good for bigger networks&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;####Achieve Sparse CNN
+4. &lt;a href=&#34;http://papers.nips.cc/paper/5784-learning-both-weights-and-connections-for-efficient-neural-network.pdf&#34; target=&#34;_blank&#34;&gt;Learning both Weights and Connections for Efficient
+Neural Networks&lt;/a&gt;  NIPS_2015
+&lt;strong&gt;key idea&lt;/strong&gt;: Learning which connections are important and Iterative pruning the low-weight connections] + retrains the network to learn the final weights for the remaining&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;./Selection_013.png&#34; alt=&#34;Alt text&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Implementation:&lt;/strong&gt;
+1. Learn which connections are important:  L1 regularization penalizes non-zero parameters resulting in  more parameters becoming zero.
+2. prune low weight connections: How much is Threshold?
+3. Retrain the sparse network
+&lt;strong&gt;Results:&lt;/strong&gt;
+- Zero Loss in accuracy for removing 50% parrsamete without retraining.
+- zero loss in accuracy for removing 90% parameters by using L1 regularization during pruning and L2 regularization during retraining&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;**Conclusion:**
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Iterative training and pruning worked better than single step.  by using L1 regularization during pruning and L2 regularization during retraining&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Parameters Required&lt;/strong&gt;:&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Need to adjust threshold to prune&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Need to adjust dropout while retraining the sparse net&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;caffe Implementation:&lt;/strong&gt;
+&lt;strong&gt;stack overflow:&lt;/strong&gt;&lt;a href=&#34;http://stackoverflow.com/questions/37663150/caffe-pruning-connections&#34; target=&#34;_blank&#34;&gt;link&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+&lt;li&gt;[DEEP COMPRESSION: COMPRESSING DEEP NEURAL
+NETWORKS WITH PRUNING, TRAINED QUANTIZATION
+AND HUFFMAN CODING]()
+&lt;strong&gt;code&lt;/strong&gt;:&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://papers.nips.cc/paper/6504-learning-structured-sparsity-in-deep-neural-networks.pdf&#34; target=&#34;_blank&#34;&gt;Learning Structured Sparsity in Deep Neural
+Networks&lt;/a&gt; - Wei Wen, NIPS 2016.
+&lt;strong&gt;Motivation:&lt;/strong&gt;Sparsity regularization and connection pruning produces no structured random connectivity
+&lt;strong&gt;code&lt;/strong&gt;: &lt;a href=&#34;https://github.com/wenwei202/caffe/tree/scnn&#34; target=&#34;_blank&#34;&gt;caffe Implementation&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;####Why 3D
+**ISBI 2016 Lung Nodule FP reduction CHALLEGE **
+| Team                  | Score | Overview                     | Link                                                       |
+|&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;|&amp;mdash;&amp;mdash;-|&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;|&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;|
+| CUMedVis (QiDou)      | 0.908 | Fused 3, 3D CNN            | &lt;a href=&#34;http://ieeexplore.ieee.org/document/7576695/&#34; target=&#34;_blank&#34;&gt;IEEE Transactions on Biomedical Engineering 2016&lt;/a&gt; |
+| JianPeiCAD (weiyixie) | 0.878 | 3D CNN                       | not revealed                                               |
+| JackFPR (cwjacklin)   | 0.872 | 3D CNN                       | not revealed                                               |
+| GIVECAD (ZJUGIVE)     | 0.857 | 3D CNN                       | not revealed                                              |
+| DIAG_CONVNET          | 0.838 | 9 orientations of 2D ConvNet | &lt;a href=&#34;http://ieeexplore.ieee.org/document/7422783/&#34; target=&#34;_blank&#34;&gt;TMI 2016&lt;/a&gt; |
+| IIT Madras            | 0.644 | 2D CNN                       | not published                                              |&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Score:&lt;/strong&gt;&lt;br /&gt;
+&lt;strong&gt;Janpiecad&lt;/strong&gt;:
+- a 3D CNN ( data augmentation such as zoom, rotation and translation.)
+-  A weighted loss function  to keep the balance between the positive and negative candidates.
+-   score  calculated by 10-fold cross validation.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Jack FPR&lt;/strong&gt;:
+- Model architecture mixing multi-layers of 3D convolutions and pooling
+-  extensive data augmentation and dropout to combat over-fitting.
+-  10-fold cross validation&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;GIveCAD&lt;/strong&gt;:
+- Extensive data preprocessing, network designing and model training phase.
+- 8-fold cross validation&lt;/p&gt;
+
+&lt;p&gt;Subramaniam:
+- 2D CNN Combined with preprocessing.&lt;/p&gt;
+
+&lt;h4 id=&#34;3d-plans&#34;&gt;3D plans&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Feng_Learning_The_Structure_ICCV_2015_paper.pdf&#34; target=&#34;_blank&#34;&gt;Learning The Structure of Deep Convolutional Networks&lt;/a&gt;
+&lt;strong&gt;Aim:&lt;/strong&gt;Learn Structure of ConvNet when training data is less.  ibpCNN to learn the structure and gap to optimize each layer.
+&lt;strong&gt;Results:&lt;/strong&gt;
+&lt;img src=&#34;./Selection_001.png&#34; alt=&#34;Alt text&#34; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;####Unsupervised Fully Convolutional Active Snakes
+- Start with hed-master.
+- Use brats daatbase for segmentation.&lt;/p&gt;
+
+&lt;h2 id=&#34;can-also-apply-on-polyps&#34;&gt;- Can also apply on polyps&lt;/h2&gt;
+
+&lt;p&gt;###Current Status in Lab
+Worked on getting used to tensor decomposition and integrating with 2D caffe code
+&lt;strong&gt;Tools to implement 3D&lt;/strong&gt;: Keras, &lt;a href=&#34;https://github.com/facebook/C3D&#34; target=&#34;_blank&#34;&gt;modified caffe facebookC3D&lt;/a&gt;
+&lt;strong&gt;Tools to implement Separable&lt;/strong&gt;:TensorLab Toolbox for matlab, Oxford code
+&lt;strong&gt;caffe integrated Separable code&lt;/strong&gt;: Takes a 2D+ 1channel caffe model as input&amp;ndash;&amp;gt; computes tensor decomposition using TensorLab  for a particular layer &amp;ndash;&amp;gt; creates a caffe model with three 1D Convolution layers.&lt;/p&gt;
+
+&lt;p&gt;####Previous adaptation of Separable in CNN
+&lt;a href=&#34;https://infoscience.epfl.ch/record/200142/files/separable_filters_learning_1.pdf&#34; target=&#34;_blank&#34;&gt;Learning separable filters. Sironi, Amos&lt;/a&gt;:
+&lt;strong&gt;Main Conclusion :&lt;/strong&gt;Tensor Decomposition using CP decomposition gives the best approximated filter banks.
+&lt;strong&gt;Method 2: Tensor Decomposition&lt;/strong&gt;:
+        - We start with 4D tensor, write it as a product of 4 vectors.
+        - CP-OPT algorithms present in matlab can be used for optimization.
+        - There is only one parameter K, which gives set of k filters
+&lt;strong&gt;Application to CNN&lt;/strong&gt;
+-  Directly cannot train approximated filters.
+-  First train a network or use a pre-trained&amp;ndash;&amp;gt;Use Tensor Decomposition &amp;ndash;&amp;gt; Achieve speed during test.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://arxiv.org/pdf/1412.6553.pdf&#34; target=&#34;_blank&#34;&gt;Speeding-up Convolutional Neural Networks Using Fine-tuned CP-Decomposition, ICLR 2015&lt;/a&gt;
+&lt;strong&gt;Main Idea&lt;/strong&gt;:  Proposed a two step process. Given a Convolutional layer perform Tensor Decomposition using CP-OPT algorithm&amp;mdash;&amp;gt;replace the original CNN layer with approximated layer&amp;mdash;&amp;gt;fine tune the entire network.
+For example a 4D convolution layer is replaced with 4 Convolution layers and the entire network is  fine tuned.
+&lt;strong&gt;Results&lt;/strong&gt;: In AlexNet. 1% accuracy drop and 8.5X speed increase
+&lt;strong&gt;Conclusion&lt;/strong&gt;: Works very good for small network. But perfomance decreasing for  for deeper networks
+&lt;a href=&#34;https://github.com/vadim-v-lebedev/cp-decomposition&#34; target=&#34;_blank&#34;&gt;CODE&lt;/a&gt;
+&lt;strong&gt;Inference&lt;/strong&gt;: Works good for small network. But perfomance not so good for bigger networks&lt;/p&gt;
+
+&lt;p&gt;####My Experiment
+&lt;strong&gt;Directly Learning Approximated Filter :&lt;/strong&gt; I did not yet come up with any idea
+&lt;strong&gt;Fine Tuning Approximated filter :&lt;/strong&gt;
+1. Took pretrained 2D Alexnet &amp;ndash;&amp;gt; Decomposed First Convolution Layer &amp;ndash;&amp;gt; Replace the code with decomposed layers&amp;ndash;&amp;gt;Fine Tuned using Frame Selection Data.
+2. Took Pretrained 2D Alexnet &amp;ndash;&amp;gt;  Directly Fine Tuned with Frame Selection Data.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Parameter Reduction&lt;/strong&gt;:
+- Alexnet Layer 1 parameter for each filter:  $11*11*3=363$  filter is reduced to $(11+11+3)=25$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Result&lt;/strong&gt;: Surprisingly Got better accuracy in frame selection&lt;/p&gt;
+
+&lt;p&gt;####My Next Week Experiment
+1. Trying to integrating separable with facebookC3D.
+2.   Perform Experiments on existing 3D data and investigate the perfomance&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Possible approaches&lt;/strong&gt;
+ 1. Use C3D caffe trained CNN &amp;mdash;&amp;gt; Use Tensor Lab Package to make separable &amp;mdash;&amp;gt; FIne tune decomposed CNN in caffe. Carryout 3D experiments  using available Data Set.
+ 2. First identify useful connections&amp;ndash;&amp;gt;Remove Redundant connections&amp;ndash;&amp;gt;fine tune 3D CNN&lt;/p&gt;
+
+&lt;p&gt;####Feb 17 Updates
+5 fold cross validation on PE data
+training data= 378 true patches and 378 false patches
+| AUC    | fold     | training iterations |
+|&amp;mdash;&amp;mdash;&amp;ndash;|&amp;mdash;&amp;mdash;&amp;mdash;-|&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;|
+| 0.9176 | 1st Fold | 60000               |
+| 0.8333 | 2nd Fold | 40000               |&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Results&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;####To Do Next Week
+Survey Strategies to cmpare 2D vs 3D&lt;/p&gt;
+
+&lt;h3 id=&#34;frame-selection&#34;&gt;Frame Selection&lt;/h3&gt;
+
+&lt;h4 id=&#34;experiment-setting&#34;&gt;Experiment  Setting&lt;/h4&gt;
+
+&lt;h3 id=&#34;some-useful-concepts&#34;&gt;Some Useful Concepts&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Linear separable filters&lt;/strong&gt; Let&amp;rsquo;s take a simple 2D example. Applying a linear filter means convoluting image with impulse response $J=I*H$. H has size h,w.
+$$H=ab^T$$
+$$J=I*a*b^T$$
+Number of Computations is reduced to O(h+w) from O(h*w) per pixel.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;matrix rank&lt;/strong&gt;: The maximum number of linearly independent vectors in a matrix is equal to the number of non-zero rows in its row echelon matrix.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SVD&lt;/strong&gt;:&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Fully Convolutional&lt;/strong&gt;:&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sliding Window&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Getting started with the Academic framework for Hugo</title>
       <link>https://naveensai.me/post/getting-started/</link>
       <pubDate>Wed, 20 Apr 2016 12:00:00 +0000</pubDate>
@@ -806,274 +1074,6 @@ With Jekyll, something that looked like&lt;/p&gt;
 &lt;h2 id=&#34;a-practical-example&#34;&gt;A practical example&lt;/h2&gt;
 
 &lt;p&gt;Alexandre Normand migrated his website from Jekyll to Hugo in less than a day. You can see all his changes by looking at this GitHub &lt;a href=&#34;https://github.com/alexandre-normand/alexandre-normand/compare/869d69435bd2665c3fbf5b5c78d4c22759d7613a...b7f6605b1265e83b4b81495423294208cc74d610&#34; target=&#34;_blank&#34;&gt;diff&lt;/a&gt;. However, bear in mind that this example is &lt;strong&gt;not specific to the Academic theme nor does it use the latest version of Hugo&lt;/strong&gt;.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://naveensai.me/post/3d-cnn/Separable/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://naveensai.me/post/3d-cnn/Separable/</guid>
-      <description>
-
-&lt;h2 id=&#34;3d-cnn-separable&#34;&gt;3D CNN/Separable&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;[TOC]&lt;/p&gt;
-
-&lt;h3 id=&#34;literature&#34;&gt;Literature&lt;/h3&gt;
-
-&lt;p&gt;####Literature on Separable
-1. &lt;a href=&#34;https://infoscience.epfl.ch/record/200142/files/separable_filters_learning_1.pdf&#34; target=&#34;_blank&#34;&gt;Learning separable filters. Sironi, Amos&lt;/a&gt;
-&lt;strong&gt;Why Separable helpful in 3D&lt;/strong&gt;: If filters are separable number of parameters reduces from $n_1.n_2.n_3d_1.d_2.d_3$ to $n1.n2.n_3(d_1+d_2+d_3)$.
-&lt;strong&gt;Overview&lt;/strong&gt;:  In this paper the author proposed various state of the art methods to learn separable filters.
-- Filters to extract image features are not always separable. Therefore, the paper finds approximates a filter bank using a linear combinations of set of separable filters. Two approaches are presented in this paper.
-        - Make changes in objective function to always make filters separable
-        - First learn a set of non separable filter&amp;mdash;&amp;gt; approximate them using a linear combination of small set of separable filters.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;**Directly Learning 2D filters**:
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;A popular model to learn filters is by using convolutional extension of  oshausen and field&amp;rsquo;s objective function.&lt;/li&gt;
-&lt;li&gt;Direct optimization give state of the art results. However,  the run time computations are costly. If filters are separable extracting feature maps computation reduces from $O(n_1.n_2.d_1.d_2))$ to $O(n1.n2.(d_1+d_2))$.&lt;/li&gt;
-&lt;li&gt;Explicitly writing filters as product of 1D filters will give rise to a quadratic objective function in 2D case. This optimization is very hard .&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Two approaches are discussed in this paper&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Modifying objective function to eliminate non-Separable solutions
-
-&lt;ul&gt;
-&lt;li&gt;Filter of Rank R can expressed as linear combination of R separable filters.
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Penalizing High Rank Filters&lt;/strong&gt;:
-    - Penalize high rank filters by adding a penality term to objective function which forces the objective function to choose low rank filters.
-    - The Penalizing term comes with a parameter $\lambda_&lt;em&gt;$
- -  Tuning appropriate values for gradient step size, $\lambda&lt;em&gt;1$ and $\lambda&lt;/em&gt;&lt;/em&gt;$ is challenging.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;**Linear Combination of Separable Filters(Filter Sharing)**:
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;A filter $f^j$ of rank $R$ can awlays be writtens as
-$$ f^j=\sum _{k=1}^{R} w_j^ks^{j,k}$$
-    - Each filter would yeild a different filter bank if decomposed independently. To, avoid this a set of separable filters are shared among all the filter banks.
-    - Just changing the weights and computing linear combinations would be enogh for any convolution&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Method 1&lt;/strong&gt;:
-    - Directly optimizing the objective function would be difficult.
-    - Convert the original objective function into two. First learn set of non separable filter &amp;ndash;&amp;gt; Then learn a set of separable filters to approximate the learned non-separable ones.
-    - An additional regularization parameter $\lambda_*$ needs to introduced which is difficult be tune.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;**Method 2: Tensor Decomposition**:
-- We start with 3D tensor, write it as a product of 3 vectors. 
-- CP-OPT algorithms present in matlab can be used for optimization.
-- There is only one parameter K, which gives set of k filters
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;: Tensor Decomposition gives the best approximation.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Application to CNN&lt;/strong&gt;: Directly cannot train approximated filters. First train a network or use a pre-trained&amp;ndash;&amp;gt;Use Tensor Decomposition &amp;ndash;&amp;gt; Achieve speed during test.
-&lt;strong&gt;Implementation&lt;/strong&gt;:  &lt;a href=&#34;https://bitbucket.org/asironi/learn_approx_class_3d/downloads&#34; target=&#34;_blank&#34;&gt;Matlab code for separating Learned 3D filters&lt;/a&gt;. Further, more efficient Library is available for tensor decomposition.&lt;a href=&#34;http://www.tensorlab.net/&#34; target=&#34;_blank&#34;&gt;TensorLab&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.umiacs.umd.edu/~zhengyf/DeepLandmark_MICCAI15.pdf&#34; target=&#34;_blank&#34;&gt;3D Deep Learning for Efficient and Robust Landmark
-Detection in Volumetric Data&lt;/a&gt;: MICCAI_2015
-&lt;strong&gt;Application&lt;/strong&gt;: Detection of Carotid Artery bifurcation Landmark(Candidate)
-&lt;strong&gt;overview&lt;/strong&gt;:  shallow 3D for candidate shortlist + deep 3D for landmark detection
-&lt;strong&gt;Library&lt;/strong&gt;: Caffe was modified to add a mask which disregards pruned parameters during network operation for each weight tensor.
-&lt;strong&gt;key idea&lt;/strong&gt;:&lt;/li&gt;
-&lt;li&gt;In shallow 3D, Separated 3D learned filters into 1D filters. Also used sharing of 1D filters.&lt;/li&gt;
-&lt;li&gt;In Deep 3D trained the network and found 90% Learned weights of deep network are close to zero.  Removed 90% of connection to achieve speed.&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;This is achieved using a regularization term which will push most the weights to zero. Thus, the dead neurons will be automatically removed during retraining.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Implementation&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;ShallowNet: Iteratively Train net using modified objective function and the Approximate learned filters using a filter bank containing S set of separable filters to minimize reconstruction error.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;DeepNet: Used L1 norm regularization to enforce sparse connection, i.e to drive weights to zero. (A parameter $\beta$ to tune amount of sparseness)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;:&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Did not separate deep network!-Since the preserved candidates are often scattered over the whole volume, separable filter decomposition as used in the shallow net does not help to accelerate the classification?? How is the candidate shortlisted. What&amp;rsquo;s a candidate.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;No Speed up during training. Only speedup achieved during testing.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://arxiv.org/pdf/1412.6553.pdf&#34; target=&#34;_blank&#34;&gt;Speeding-up Convolutional Neural Networks Using Fine-tuned CP-Decomposition, ICLR 2015&lt;/a&gt;
-&lt;strong&gt;Main Idea&lt;/strong&gt;:  Proposed a two step process. Given a Convolutional layer perform Tensor Decomposition&amp;mdash;&amp;gt;replace the original CNN layer with approximated layer&amp;mdash;&amp;gt;fine tune the entire network.
-For example a 4D convolution layer is replaced with 4 Convolution layers and the entire network is  fine tuned.
-&lt;strong&gt;Results&lt;/strong&gt;: In AlexNet. 1% accuracy drop and 8.5X speed increase
-&lt;a href=&#34;https://github.com/vadim-v-lebedev/cp-decomposition&#34; target=&#34;_blank&#34;&gt;CODE&lt;/a&gt;
-&lt;strong&gt;Inference&lt;/strong&gt;: Works good for small network. But perfomance not so good for bigger networks&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;####Achieve Sparse CNN
-4. &lt;a href=&#34;http://papers.nips.cc/paper/5784-learning-both-weights-and-connections-for-efficient-neural-network.pdf&#34; target=&#34;_blank&#34;&gt;Learning both Weights and Connections for Efficient
-Neural Networks&lt;/a&gt;  NIPS_2015
-&lt;strong&gt;key idea&lt;/strong&gt;: Learning which connections are important and Iterative pruning the low-weight connections] + retrains the network to learn the final weights for the remaining&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;./Selection_013.png&#34; alt=&#34;Alt text&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Implementation:&lt;/strong&gt;
-1. Learn which connections are important:  L1 regularization penalizes non-zero parameters resulting in  more parameters becoming zero.
-2. prune low weight connections: How much is Threshold?
-3. Retrain the sparse network
-&lt;strong&gt;Results:&lt;/strong&gt;
-- Zero Loss in accuracy for removing 50% parrsamete without retraining.
-- zero loss in accuracy for removing 90% parameters by using L1 regularization during pruning and L2 regularization during retraining&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;**Conclusion:**
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Iterative training and pruning worked better than single step.  by using L1 regularization during pruning and L2 regularization during retraining&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Parameters Required&lt;/strong&gt;:&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Need to adjust threshold to prune&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Need to adjust dropout while retraining the sparse net&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;caffe Implementation:&lt;/strong&gt;
-&lt;strong&gt;stack overflow:&lt;/strong&gt;&lt;a href=&#34;http://stackoverflow.com/questions/37663150/caffe-pruning-connections&#34; target=&#34;_blank&#34;&gt;link&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-&lt;li&gt;[DEEP COMPRESSION: COMPRESSING DEEP NEURAL
-NETWORKS WITH PRUNING, TRAINED QUANTIZATION
-AND HUFFMAN CODING]()
-&lt;strong&gt;code&lt;/strong&gt;:&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://papers.nips.cc/paper/6504-learning-structured-sparsity-in-deep-neural-networks.pdf&#34; target=&#34;_blank&#34;&gt;Learning Structured Sparsity in Deep Neural
-Networks&lt;/a&gt; - Wei Wen, NIPS 2016.
-&lt;strong&gt;Motivation:&lt;/strong&gt;Sparsity regularization and connection pruning produces no structured random connectivity
-&lt;strong&gt;code&lt;/strong&gt;: &lt;a href=&#34;https://github.com/wenwei202/caffe/tree/scnn&#34; target=&#34;_blank&#34;&gt;caffe Implementation&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;####Why 3D
-**ISBI 2016 Lung Nodule FP reduction CHALLEGE **
-| Team                  | Score | Overview                     | Link                                                       |
-|&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;|&amp;mdash;&amp;mdash;-|&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;|&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;|
-| CUMedVis (QiDou)      | 0.908 | Fused 3, 3D CNN            | &lt;a href=&#34;http://ieeexplore.ieee.org/document/7576695/&#34; target=&#34;_blank&#34;&gt;IEEE Transactions on Biomedical Engineering 2016&lt;/a&gt; |
-| JianPeiCAD (weiyixie) | 0.878 | 3D CNN                       | not revealed                                               |
-| JackFPR (cwjacklin)   | 0.872 | 3D CNN                       | not revealed                                               |
-| GIVECAD (ZJUGIVE)     | 0.857 | 3D CNN                       | not revealed                                              |
-| DIAG_CONVNET          | 0.838 | 9 orientations of 2D ConvNet | &lt;a href=&#34;http://ieeexplore.ieee.org/document/7422783/&#34; target=&#34;_blank&#34;&gt;TMI 2016&lt;/a&gt; |
-| IIT Madras            | 0.644 | 2D CNN                       | not published                                              |&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Score:&lt;/strong&gt;&lt;br /&gt;
-&lt;strong&gt;Janpiecad&lt;/strong&gt;:
-- a 3D CNN ( data augmentation such as zoom, rotation and translation.)
--  A weighted loss function  to keep the balance between the positive and negative candidates.
--   score  calculated by 10-fold cross validation.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Jack FPR&lt;/strong&gt;:
-- Model architecture mixing multi-layers of 3D convolutions and pooling
--  extensive data augmentation and dropout to combat over-fitting.
--  10-fold cross validation&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;GIveCAD&lt;/strong&gt;:
-- Extensive data preprocessing, network designing and model training phase.
-- 8-fold cross validation&lt;/p&gt;
-
-&lt;p&gt;Subramaniam:
-- 2D CNN Combined with preprocessing.&lt;/p&gt;
-
-&lt;h4 id=&#34;3d-plans&#34;&gt;3D plans&lt;/h4&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Feng_Learning_The_Structure_ICCV_2015_paper.pdf&#34; target=&#34;_blank&#34;&gt;Learning The Structure of Deep Convolutional Networks&lt;/a&gt;
-&lt;strong&gt;Aim:&lt;/strong&gt;Learn Structure of ConvNet when training data is less.  ibpCNN to learn the structure and gap to optimize each layer.
-&lt;strong&gt;Results:&lt;/strong&gt;
-&lt;img src=&#34;./Selection_001.png&#34; alt=&#34;Alt text&#34; /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;####Unsupervised Fully Convolutional Active Snakes
-- Start with hed-master.
-- Use brats daatbase for segmentation.&lt;/p&gt;
-
-&lt;h2 id=&#34;can-also-apply-on-polyps&#34;&gt;- Can also apply on polyps&lt;/h2&gt;
-
-&lt;p&gt;###Current Status in Lab
-Worked on getting used to tensor decomposition and integrating with 2D caffe code
-&lt;strong&gt;Tools to implement 3D&lt;/strong&gt;: Keras, &lt;a href=&#34;https://github.com/facebook/C3D&#34; target=&#34;_blank&#34;&gt;modified caffe facebookC3D&lt;/a&gt;
-&lt;strong&gt;Tools to implement Separable&lt;/strong&gt;:TensorLab Toolbox for matlab, Oxford code
-&lt;strong&gt;caffe integrated Separable code&lt;/strong&gt;: Takes a 2D+ 1channel caffe model as input&amp;ndash;&amp;gt; computes tensor decomposition using TensorLab  for a particular layer &amp;ndash;&amp;gt; creates a caffe model with three 1D Convolution layers.&lt;/p&gt;
-
-&lt;p&gt;####Previous adaptation of Separable in CNN
-&lt;a href=&#34;https://infoscience.epfl.ch/record/200142/files/separable_filters_learning_1.pdf&#34; target=&#34;_blank&#34;&gt;Learning separable filters. Sironi, Amos&lt;/a&gt;:
-&lt;strong&gt;Main Conclusion :&lt;/strong&gt;Tensor Decomposition using CP decomposition gives the best approximated filter banks.
-&lt;strong&gt;Method 2: Tensor Decomposition&lt;/strong&gt;:
-        - We start with 4D tensor, write it as a product of 4 vectors.
-        - CP-OPT algorithms present in matlab can be used for optimization.
-        - There is only one parameter K, which gives set of k filters
-&lt;strong&gt;Application to CNN&lt;/strong&gt;
--  Directly cannot train approximated filters.
--  First train a network or use a pre-trained&amp;ndash;&amp;gt;Use Tensor Decomposition &amp;ndash;&amp;gt; Achieve speed during test.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://arxiv.org/pdf/1412.6553.pdf&#34; target=&#34;_blank&#34;&gt;Speeding-up Convolutional Neural Networks Using Fine-tuned CP-Decomposition, ICLR 2015&lt;/a&gt;
-&lt;strong&gt;Main Idea&lt;/strong&gt;:  Proposed a two step process. Given a Convolutional layer perform Tensor Decomposition using CP-OPT algorithm&amp;mdash;&amp;gt;replace the original CNN layer with approximated layer&amp;mdash;&amp;gt;fine tune the entire network.
-For example a 4D convolution layer is replaced with 4 Convolution layers and the entire network is  fine tuned.
-&lt;strong&gt;Results&lt;/strong&gt;: In AlexNet. 1% accuracy drop and 8.5X speed increase
-&lt;strong&gt;Conclusion&lt;/strong&gt;: Works very good for small network. But perfomance decreasing for  for deeper networks
-&lt;a href=&#34;https://github.com/vadim-v-lebedev/cp-decomposition&#34; target=&#34;_blank&#34;&gt;CODE&lt;/a&gt;
-&lt;strong&gt;Inference&lt;/strong&gt;: Works good for small network. But perfomance not so good for bigger networks&lt;/p&gt;
-
-&lt;p&gt;####My Experiment
-&lt;strong&gt;Directly Learning Approximated Filter :&lt;/strong&gt; I did not yet come up with any idea
-&lt;strong&gt;Fine Tuning Approximated filter :&lt;/strong&gt;
-1. Took pretrained 2D Alexnet &amp;ndash;&amp;gt; Decomposed First Convolution Layer &amp;ndash;&amp;gt; Replace the code with decomposed layers&amp;ndash;&amp;gt;Fine Tuned using Frame Selection Data.
-2. Took Pretrained 2D Alexnet &amp;ndash;&amp;gt;  Directly Fine Tuned with Frame Selection Data.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Parameter Reduction&lt;/strong&gt;:
-- Alexnet Layer 1 parameter for each filter:  $11*11*3=363$  filter is reduced to $(11+11+3)=25$.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Result&lt;/strong&gt;: Surprisingly Got better accuracy in frame selection&lt;/p&gt;
-
-&lt;p&gt;####My Next Week Experiment
-1. Trying to integrating separable with facebookC3D.
-2.   Perform Experiments on existing 3D data and investigate the perfomance&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Possible approaches&lt;/strong&gt;
- 1. Use C3D caffe trained CNN &amp;mdash;&amp;gt; Use Tensor Lab Package to make separable &amp;mdash;&amp;gt; FIne tune decomposed CNN in caffe. Carryout 3D experiments  using available Data Set.
- 2. First identify useful connections&amp;ndash;&amp;gt;Remove Redundant connections&amp;ndash;&amp;gt;fine tune 3D CNN&lt;/p&gt;
-
-&lt;p&gt;####Feb 17 Updates
-5 fold cross validation on PE data
-training data= 378 true patches and 378 false patches
-| AUC    | fold     | training iterations |
-|&amp;mdash;&amp;mdash;&amp;ndash;|&amp;mdash;&amp;mdash;&amp;mdash;-|&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;|
-| 0.9176 | 1st Fold | 60000               |
-| 0.8333 | 2nd Fold | 40000               |&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Results&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;####To Do Next Week
-Survey Strategies to cmpare 2D vs 3D&lt;/p&gt;
-
-&lt;h3 id=&#34;frame-selection&#34;&gt;Frame Selection&lt;/h3&gt;
-
-&lt;h4 id=&#34;experiment-setting&#34;&gt;Experiment  Setting&lt;/h4&gt;
-
-&lt;h3 id=&#34;some-useful-concepts&#34;&gt;Some Useful Concepts&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Linear separable filters&lt;/strong&gt; Let&amp;rsquo;s take a simple 2D example. Applying a linear filter means convoluting image with impulse response $J=I*H$. H has size h,w.
-$$H=ab^T$$
-$$J=I*a*b^T$$
-Number of Computations is reduced to O(h+w) from O(h*w) per pixel.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;matrix rank&lt;/strong&gt;: The maximum number of linearly independent vectors in a matrix is equal to the number of non-zero rows in its row echelon matrix.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SVD&lt;/strong&gt;:&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Fully Convolutional&lt;/strong&gt;:&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Sliding Window&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
 </description>
     </item>
     

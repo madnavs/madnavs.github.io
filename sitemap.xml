@@ -4,22 +4,6 @@
     
     
     <url>
-      <loc>https://naveensai.me/post/Making%20CSE-231%20CNN%20Separable/</loc>
-      <lastmod>2017-04-20T12:00:00+00:00</lastmod>
-    </url>
-    
-  
-    
-    
-    <url>
-      <loc>https://naveensai.me/post/2017-03-7-3Dall.html/</loc>
-      <lastmod>2017-04-20T11:00:00+00:00</lastmod>
-    </url>
-    
-  
-    
-    
-    <url>
       <loc>https://naveensai.me/post/</loc>
       <lastmod>2017-03-08T00:00:00+00:00</lastmod>
     </url>
@@ -116,14 +100,7 @@
     
     
     <url>
-      <loc>https://naveensai.me/post/2017-03-7-3DCNN/</loc>
-    </url>
-    
-  
-    
-    
-    <url>
-      <loc>https://naveensai.me/post/2017-03-7-C3D/</loc>
+      <loc>https://naveensai.me/post/3d-cnn/Separable/</loc>
     </url>
     
   
@@ -167,7 +144,7 @@
     
     <url>
       <loc>https://naveensai.me/tags/hugo/</loc>
-      <lastmod>2017-04-20T12:00:00+00:00</lastmod>
+      <lastmod>2016-04-20T12:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     

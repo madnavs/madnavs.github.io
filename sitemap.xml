@@ -12,14 +12,6 @@
     
     
     <url>
-      <loc>https://naveensai.me/talk/example-talk/</loc>
-      <lastmod>2017-01-01T00:00:00+00:00</lastmod>
-    </url>
-    
-  
-    
-    
-    <url>
       <loc>https://naveensai.me/post/</loc>
       <lastmod>2017-01-01T00:00:00+00:00</lastmod>
     </url>
@@ -29,14 +21,6 @@
     
     <url>
       <loc>https://naveensai.me/publication/</loc>
-      <lastmod>2017-01-01T00:00:00+00:00</lastmod>
-    </url>
-    
-  
-    
-    
-    <url>
-      <loc>https://naveensai.me/talk/</loc>
       <lastmod>2017-01-01T00:00:00+00:00</lastmod>
     </url>
     
@@ -110,6 +94,27 @@
     <url>
       <loc>https://naveensai.me/publication/clothing-search/</loc>
       <lastmod>2013-07-01T00:00:00+00:00</lastmod>
+    </url>
+    
+  
+    
+    
+    <url>
+      <loc>https://naveensai.me/post/2017-03-7-3DCNN/</loc>
+    </url>
+    
+  
+    
+    
+    <url>
+      <loc>https://naveensai.me/post/2017-03-7-3Dall/</loc>
+    </url>
+    
+  
+    
+    
+    <url>
+      <loc>https://naveensai.me/post/2017-03-7-C3D/</loc>
     </url>
     
   

@@ -11,11 +11,13 @@
     
     <item>
       <title>Geospark Notes</title>
-      <link>http://naveensai.me/post/Hadoop/</link>
+      <link>http://naveensai.me/post/Geospark/</link>
       <pubDate>Fri, 10 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://naveensai.me/post/Hadoop/</guid>
-      <description>&lt;div&gt;&lt;div class=&#34;toc&#34;&gt;&lt;div class=&#34;toc&#34;&gt;
+      <guid>http://naveensai.me/post/Geospark/</guid>
+      <description>&lt;!--&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;Single Node Cluster Setup using Spark and Hadoop&lt;/title&gt;&lt;meta charset=&#39;utf-8&#39;&gt;&lt;link href=&#39;https://d31qtcb7c58z3n.cloudfront.net/res-min/themes/marxico.css&#39; rel=&#39;stylesheet&#39;&gt;&lt;style&gt;&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div id=&#39;preview-contents&#39; class=&#39;note-content&#39;&gt; --&gt;
+
+&lt;div&gt;&lt;div class=&#34;toc&#34;&gt;&lt;div class=&#34;toc&#34;&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#single-node-cluster-setup-using-spark-and-hadoop&#34;&gt;Single Node Cluster Setup using Spark and Hadoop&lt;/a&gt;&lt;ul&gt;

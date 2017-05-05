@@ -11,30 +11,31 @@
     
     <item>
       <title>Multivariate Time Series Classification using LSTM - Keras </title>
-      <link>http://naveensai.me/post/Multiariate%20TImeSeries%20Classification/</link>
+      <link>http://naveensai.me/project/Multiariate%20TImeSeries%20Classification/</link>
       <pubDate>Wed, 10 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://naveensai.me/post/Multiariate%20TImeSeries%20Classification/</guid>
-      <description>
+      <guid>http://naveensai.me/project/Multiariate%20TImeSeries%20Classification/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/madnavs/Multivariate-Classification&#34; target=&#34;_blank&#34;&gt;Github Repo Link&lt;/a&gt;&lt;/p&gt;
 
-&lt;h1 id=&#34;multivariate-time-series-classification-using-lstm-keras&#34;&gt;Multivariate Time Series Classification using LSTM - Keras&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/madnavs/Multivariate-Classification&#34; target=&#34;_blank&#34;&gt;Github Repo Link&lt;/a&gt;
-&lt;strong&gt;How to Run:&lt;/strong&gt;  &lt;code&gt;Keras.py&lt;/code&gt; and &lt;code&gt;Multi-variate-Time-series-Data.xlsx&lt;/code&gt; need to be on the same folder. The script will create four images&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to Run:&lt;/strong&gt;  &lt;code&gt;Keras.py&lt;/code&gt; and &lt;code&gt;Multi-variate-Time-series-Data.xlsx&lt;/code&gt; need to be on the same folder. The script will create four images&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;dataset Stats:&lt;/strong&gt;
-&lt;code&gt;Multi-variate-Time-series-Data.xlsx&lt;/code&gt;
-- Total Number of Time Series : 205
-- Data For Training :  72%
-- Data For Validation : 8%
-- Data For Testing : 20%&lt;/p&gt;
+&lt;code&gt;Multi-variate-Time-series-Data.xlsx&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Method Overview :&lt;/strong&gt; I have used Keras framework and an LSTM Network to design the model
-&lt;strong&gt;Train-Test Data Generation&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;Total Number of Time Series : 205&lt;/li&gt;
+&lt;li&gt;Data For Training :  72%&lt;/li&gt;
+&lt;li&gt;Data For Validation : 8%&lt;/li&gt;
+&lt;li&gt;Data For Testing : 20%&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Method Overview :&lt;/strong&gt; I have used Keras framework and an LSTM Network to design the model&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Train-Test Data Generation&lt;/strong&gt;
   &lt;code&gt;win_size = 89&lt;/code&gt; represents time series size.   &lt;code&gt;num_var = 14&lt;/code&gt; represents the feature vector size. Based no this I extract &lt;code&gt;segments&lt;/code&gt;of  &lt;code&gt;89*14&lt;/code&gt; array. FUrtherr, we feed this time series to LSTM sequntially.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Model Sumary&lt;/strong&gt;
-&lt;img src=&#34;img/modelSummary.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;http://naveensai.me/img/modelSummary.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Parameter setting&lt;/strong&gt;
   &lt;code&gt;split_ratio = 0.8&lt;/code&gt;
@@ -58,8 +59,8 @@
 
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;img/test_roc.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;img/test_conf.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;http://naveensai.me/img/test_roc.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;http://naveensai.me/img/test_conf.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -78,8 +79,8 @@
 
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;img/train_roc.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;img/train_conf.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;http://naveensai.me/img/train_roc.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;http://naveensai.me/img/train_conf.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;

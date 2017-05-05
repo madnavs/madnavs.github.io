@@ -16,6 +16,11 @@
     
   
   
+    
+    
+    <link rel="stylesheet" href="/css/highlight.min.css">
+    
+  
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/academicons.min.css">
@@ -29,11 +34,11 @@
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/apple-touch-icon.png">
 
-  <link rel="canonical" href="http://naveensai.me/post/">
+  <link rel="canonical" href="http://naveensai.me/project/Multiariate%20TImeSeries%20Classification/">
 
   
 
-  <title>Posts | Naveen Sai</title>
+  <title>Multivariate Time Series Classification using LSTM - Keras  | Naveen Sai</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71">
@@ -138,256 +143,152 @@
 </nav>
 
 
-
-
-<div class="universal-wrapper">
-
-  <h1>Posts</h1>
+<article class="article article-project" itemscope itemtype="http://schema.org/Article">
 
   
 
-  
-  
-  <div>
-    
-    <h2><a href="http://naveensai.me/post/Geospark/">Geospark Notes</a></h2>
-    
+  <div class="article-container">
 
-<div class="article-metadata">
-
-  <span class="article-date">
-    <time datetime="2017-03-10 00:00:00 &#43;0000 UTC" itemprop="datePublished">
-      Fri, Mar 10, 2017
-    </time>
-  </span>
-
-  
-
-  
-  
-  
-  <span class="article-tags">
-    <i class="fa fa-tags"></i>
-    
-    <a href="/tags/jekyll">jekyll</a
-    >
-    
-  </span>
-  
-  
-
-  
-
+    <div class="pub-title">
+      <h1 itemprop="name">Multivariate Time Series Classification using LSTM - Keras </h1>
+      <span class="pub-authors" itemprop="author">&nbsp;</span>
+      <span class="pull-right">
+        
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=http%3a%2f%2fnaveensai.me%2fproject%2fMultiariate%2520TImeSeries%2520Classification%2f"
+         target="_blank">
+        <i class="fa fa-facebook"></i>
+      </a>
+    </li>
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=Multivariate%20Time%20Series%20Classification%20using%20LSTM%20-%20Keras%20&amp;url=http%3a%2f%2fnaveensai.me%2fproject%2fMultiariate%2520TImeSeries%2520Classification%2f"
+         target="_blank">
+        <i class="fa fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2fnaveensai.me%2fproject%2fMultiariate%2520TImeSeries%2520Classification%2f&amp;title=Multivariate%20Time%20Series%20Classification%20using%20LSTM%20-%20Keras%20"
+         target="_blank">
+        <i class="fa fa-linkedin"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=http%3a%2f%2fnaveensai.me%2fproject%2fMultiariate%2520TImeSeries%2520Classification%2f&amp;title=Multivariate%20Time%20Series%20Classification%20using%20LSTM%20-%20Keras%20"
+         target="_blank">
+        <i class="fa fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=Multivariate%20Time%20Series%20Classification%20using%20LSTM%20-%20Keras%20&amp;body=http%3a%2f%2fnaveensai.me%2fproject%2fMultiariate%2520TImeSeries%2520Classification%2f">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
 </div>
 
-    <div class="article-style"><p>
-      
-      Summary to install  and modify Geospark.
-      
-    </p></div>
+
+      </span>
+    </div>
+
+    
+
+    <div class="article-style" itemprop="articleBody">
+      <p><a href="https://github.com/madnavs/Multivariate-Classification" target="_blank">Github Repo Link</a></p>
+
+<p><strong>How to Run:</strong>  <code>Keras.py</code> and <code>Multi-variate-Time-series-Data.xlsx</code> need to be on the same folder. The script will create four images</p>
+
+<p><strong>dataset Stats:</strong>
+<code>Multi-variate-Time-series-Data.xlsx</code></p>
+
+<ul>
+<li>Total Number of Time Series : 205</li>
+<li>Data For Training :  72%</li>
+<li>Data For Validation : 8%</li>
+<li>Data For Testing : 20%</li>
+</ul>
+
+<p><strong>Method Overview :</strong> I have used Keras framework and an LSTM Network to design the model</p>
+
+<p><strong>Train-Test Data Generation</strong>
+  <code>win_size = 89</code> represents time series size.   <code>num_var = 14</code> represents the feature vector size. Based no this I extract <code>segments</code>of  <code>89*14</code> array. FUrtherr, we feed this time series to LSTM sequntially.</p>
+
+<p><strong>Model Sumary</strong>
+<img src="/img/modelSummary.png" alt="" /></p>
+
+<p><strong>Parameter setting</strong>
+  <code>split_ratio = 0.8</code>
+<code>learning rate=0.001</code>
+<code>nb_epoch=50</code>
+<code>batch_size=64</code></p>
+
+<p><strong>Output:</strong></p>
+
+<ol>
+<li>Performance of model on <code>test set</code>,</li>
+</ol>
+
+<table>
+<thead>
+<tr>
+<th align="center">Test ROC</th>
+<th align="center">Test Confusion matrix</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center"><img src="/img/test_roc.png" alt="" /></td>
+<td align="center"><img src="/img/test_conf.png" alt="" /></td>
+</tr>
+</tbody>
+</table>
+
+<ol>
+<li>Performance of model on <code>train set</code>,</li>
+</ol>
+
+<table>
+<thead>
+<tr>
+<th align="center">Train ROC</th>
+<th align="center">Train Confusion matrix</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center"><img src="/img/train_roc.png" alt="" /></td>
+<td align="center"><img src="/img/train_conf.png" alt="" /></td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
   </div>
-  
-  <div>
+</article>
+
+<div class="container">
+  <nav>
+  <ul class="pager">
     
-    <h2><a href="http://naveensai.me/post/Separable/">Notes on 3D CNN</a></h2>
+    <li class="previous"><a href="http://naveensai.me/project/example-external-project/"><span
+      aria-hidden="true">&larr;</span> External Project</a></li>
     
 
-<div class="article-metadata">
-
-  <span class="article-date">
-    <time datetime="2017-03-10 00:00:00 &#43;0000 UTC" itemprop="datePublished">
-      Fri, Mar 10, 2017
-    </time>
-  </span>
-
-  
-
-  
-  
-  
-  <span class="article-tags">
-    <i class="fa fa-tags"></i>
     
-    <a href="/tags/3d">3D</a
-    >, 
-    
-    <a href="/tags/cnn">CNN</a
-    >
-    
-  </span>
-  
-  
-
-  
+  </ul>
+</nav>
 
 </div>
 
-    <div class="article-style"><p>
-      
-      Notes on 3D CNN.
-      
-    </p></div>
-  </div>
-  
-  <div>
-    
-    <h2><a href="http://naveensai.me/post/widgets/">Customizing the homepage with widgets</a></h2>
-    
-
-<div class="article-metadata">
-
-  <span class="article-date">
-    <time datetime="2016-04-20 11:00:00 &#43;0000 UTC" itemprop="datePublished">
-      Wed, Apr 20, 2016
-    </time>
-  </span>
-
-  
-
-  
-  
-  
-  <span class="article-tags">
-    <i class="fa fa-tags"></i>
-    
-    <a href="/tags/academic">academic</a
-    >, 
-    
-    <a href="/tags/hugo">hugo</a
-    >
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-    <div class="article-style"><p>
-      
-      Enable/disable and configure widgets to customize your homepage.
-      
-    </p></div>
-  </div>
-  
-  <div>
-    
-    <h2><a href="http://naveensai.me/post/managing-content/">Managing content</a></h2>
-    
-
-<div class="article-metadata">
-
-  <span class="article-date">
-    <time datetime="2016-04-20 11:00:00 &#43;0000 UTC" itemprop="datePublished">
-      Wed, Apr 20, 2016
-    </time>
-  </span>
-
-  
-
-  
-  
-  
-  <span class="article-tags">
-    <i class="fa fa-tags"></i>
-    
-    <a href="/tags/academic">academic</a
-    >, 
-    
-    <a href="/tags/hugo">hugo</a
-    >
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-    <div class="article-style"><p>
-      
-      This is a brief guide to managing content with the Academic framework. Content can include publications, projects, talks, and news/blog articles. After you have read this guide about creating and managing content, you may also be interested to learn about <a href="http://naveensai.me/post/writing-markdown-latex/" target="_blank">writing content with Markdown, LaTeX, and Shortcodes</a>.
-      
-    </p></div>
-  </div>
-  
-  <div>
-    
-    <h2><a href="http://naveensai.me/post/writing-markdown-latex/">Writing content with Markdown, LaTeX, and Shortcodes</a></h2>
-    
-
-<div class="article-metadata">
-
-  <span class="article-date">
-    <time datetime="2016-04-20 10:00:00 &#43;0000 UTC" itemprop="datePublished">
-      Wed, Apr 20, 2016
-    </time>
-  </span>
-
-  
-
-  
-  
-  
-  
-
-  
-
-</div>
-
-    <div class="article-style"><p>
-      
-      Content can be written using <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown</a>, <a href="https://en.wikibooks.org/wiki/LaTeX/Mathematics" target="_blank">LaTeX math</a>, and <a href="http://gohugo.io/extras/shortcodes/" target="_blank">Hugo Shortcodes</a>. Additionally, HTML may be used for advanced formatting. This article gives an overview of the most common formatting options.
-      
-    </p></div>
-  </div>
-  
-  <div>
-    
-    <h2><a href="http://naveensai.me/post/migrate-from-jekyll/">Migrate from Jekyll to Hugo</a></h2>
-    
-
-<div class="article-metadata">
-
-  <span class="article-date">
-    <time datetime="2014-03-10 00:00:00 &#43;0000 UTC" itemprop="datePublished">
-      Mon, Mar 10, 2014
-    </time>
-  </span>
-
-  
-
-  
-  
-  
-  <span class="article-tags">
-    <i class="fa fa-tags"></i>
-    
-    <a href="/tags/jekyll">jekyll</a
-    >
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-    <div class="article-style"><p>
-      
-      Learn how to migrate an existing website from Jekyll to Hugo.
-      
-    </p></div>
-  </div>
-  
-
-  
-
-
-</div>
 <footer class="site-footer">
   <div class="container">
     <p class="powered-by">
@@ -441,6 +342,15 @@
     
 
     
+    
+      
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+      
+
+      
+
+      <script>hljs.initHighlightingOnLoad();</script>
     
 
     

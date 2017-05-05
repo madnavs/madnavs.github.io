@@ -11,6 +11,83 @@
     <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Multivariate Time Series Classification using LSTM - Keras </title>
+      <link>http://naveensai.me/post/Multiariate%20TImeSeries%20Classification/</link>
+      <pubDate>Wed, 10 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://naveensai.me/post/Multiariate%20TImeSeries%20Classification/</guid>
+      <description>
+
+&lt;h1 id=&#34;multivariate-time-series-classification-using-lstm-keras&#34;&gt;Multivariate Time Series Classification using LSTM - Keras&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/madnavs/Multivariate-Classification&#34; target=&#34;_blank&#34;&gt;Github Repo Link&lt;/a&gt;
+&lt;strong&gt;How to Run:&lt;/strong&gt;  &lt;code&gt;Keras.py&lt;/code&gt; and &lt;code&gt;Multi-variate-Time-series-Data.xlsx&lt;/code&gt; need to be on the same folder. The script will create four images&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;dataset Stats:&lt;/strong&gt;
+&lt;code&gt;Multi-variate-Time-series-Data.xlsx&lt;/code&gt;
+- Total Number of Time Series : 205
+- Data For Training :  72%
+- Data For Validation : 8%
+- Data For Testing : 20%&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Method Overview :&lt;/strong&gt; I have used Keras framework and an LSTM Network to design the model
+&lt;strong&gt;Train-Test Data Generation&lt;/strong&gt;
+  &lt;code&gt;win_size = 89&lt;/code&gt; represents time series size.   &lt;code&gt;num_var = 14&lt;/code&gt; represents the feature vector size. Based no this I extract &lt;code&gt;segments&lt;/code&gt;of  &lt;code&gt;89*14&lt;/code&gt; array. FUrtherr, we feed this time series to LSTM sequntially.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Model Sumary&lt;/strong&gt;
+&lt;img src=&#34;static/img/modelSummary.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Parameter setting&lt;/strong&gt;
+  &lt;code&gt;split_ratio = 0.8&lt;/code&gt;
+&lt;code&gt;learning rate=0.001&lt;/code&gt;
+&lt;code&gt;nb_epoch=50&lt;/code&gt;
+&lt;code&gt;batch_size=64&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Output:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Performance of model on &lt;code&gt;test set&lt;/code&gt;,&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;Test ROC&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;Test Confusion matrix&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;static/img/test_roc.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;static/img/test_conf.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Performance of model on &lt;code&gt;train set&lt;/code&gt;,&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;Train ROC&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;Train Confusion matrix&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;static/img/train_roc.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;static/img/train_conf.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Geospark Notes</title>
       <link>http://naveensai.me/post/Geospark/</link>
       <pubDate>Fri, 10 Mar 2017 00:00:00 +0000</pubDate>
@@ -169,83 +246,6 @@ Processing Large-Scale Spatial Data&lt;/a&gt; &lt;br&gt;
 &lt;p&gt;&lt;p&gt;&lt;strong&gt;Spatial Range Query: &lt;/strong&gt; &lt;br&gt;
 &lt;strong&gt;KNN Query: &lt;/strong&gt; &lt;br&gt;
 &lt;strong&gt;Spatial Range Query: &lt;/strong&gt;&lt;/p&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Multivariate Time Series Classification using LSTM - Keras </title>
-      <link>http://naveensai.me/post/Multiariate%20TImeSeries%20Classification/</link>
-      <pubDate>Fri, 10 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>http://naveensai.me/post/Multiariate%20TImeSeries%20Classification/</guid>
-      <description>
-
-&lt;h1 id=&#34;multivariate-time-series-classification-using-lstm-keras&#34;&gt;Multivariate Time Series Classification using LSTM - Keras&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/madnavs/Multivariate-Classification&#34; target=&#34;_blank&#34;&gt;Github Repo Link&lt;/a&gt;
-&lt;strong&gt;How to Run:&lt;/strong&gt;  &lt;code&gt;Keras.py&lt;/code&gt; and &lt;code&gt;Multi-variate-Time-series-Data.xlsx&lt;/code&gt; need to be on the same folder. The script will create four images&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;dataset Stats:&lt;/strong&gt;
-&lt;code&gt;Multi-variate-Time-series-Data.xlsx&lt;/code&gt;
-- Total Number of Time Series : 205
-- Data For Training :  72%
-- Data For Validation : 8%
-- Data For Testing : 20%&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Method Overview :&lt;/strong&gt; I have used Keras framework and an LSTM Network to design the model
-&lt;strong&gt;Train-Test Data Generation&lt;/strong&gt;
-  &lt;code&gt;win_size = 89&lt;/code&gt; represents time series size.   &lt;code&gt;num_var = 14&lt;/code&gt; represents the feature vector size. Based no this I extract &lt;code&gt;segments&lt;/code&gt;of  &lt;code&gt;89*14&lt;/code&gt; array. FUrtherr, we feed this time series to LSTM sequntially.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Model Sumary&lt;/strong&gt;
-&lt;img src=&#34;sample_result/modelSummary.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Parameter setting&lt;/strong&gt;
-  &lt;code&gt;split_ratio = 0.8&lt;/code&gt;
-&lt;code&gt;learning rate=0.001&lt;/code&gt;
-&lt;code&gt;nb_epoch=50&lt;/code&gt;
-&lt;code&gt;batch_size=64&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Output:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Performance of model on &lt;code&gt;test set&lt;/code&gt;,&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align=&#34;center&#34;&gt;Test ROC&lt;/th&gt;
-&lt;th align=&#34;center&#34;&gt;Test Confusion matrix&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;../../static/sample_result/test_roc.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;../../static/sample_result/test_conf.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Performance of model on &lt;code&gt;train set&lt;/code&gt;,&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align=&#34;center&#34;&gt;Train ROC&lt;/th&gt;
-&lt;th align=&#34;center&#34;&gt;Train Confusion matrix&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;../../static/sample_result/train_roc.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;../../static/sample_result/train_conf.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
 </description>
     </item>
     

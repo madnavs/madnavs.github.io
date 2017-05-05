@@ -35,7 +35,7 @@
   &lt;code&gt;win_size = 89&lt;/code&gt; represents time series size.   &lt;code&gt;num_var = 14&lt;/code&gt; represents the feature vector size. Based no this I extract &lt;code&gt;segments&lt;/code&gt;of  &lt;code&gt;89*14&lt;/code&gt; array. FUrtherr, we feed this time series to LSTM sequntially.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Model Sumary&lt;/strong&gt;
-&lt;img src=&#34;sample_result/modelSummary.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;img/modelSummary.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Parameter setting&lt;/strong&gt;
   &lt;code&gt;split_ratio = 0.8&lt;/code&gt;
@@ -59,8 +59,8 @@
 
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;sample_result/test_roc.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;sample_result/test_conf.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;img/test_roc.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;img/test_conf.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -79,8 +79,8 @@
 
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;sample_result/train_roc.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;sample_result/train_conf.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;img/train_roc.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;img src=&#34;img/train_conf.png&#34; alt=&#34;&#34; /&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
